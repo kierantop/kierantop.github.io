@@ -75,8 +75,7 @@
     };
 
     var insertDetails = () => {
-        insert("details", `
-<details>
+        insert("details", `<details>
     <summary>
         summary
     </summary>
@@ -86,8 +85,7 @@
     }
 
     var insertTable = () => {
-        insert("table", `
-<table>
+        insert("table", `<table>
     <tr>
         <th>
         head1
@@ -126,7 +124,7 @@
         wrapper.setAttribute('style', 'width:100%;height:0;position:fixed;top:0;left:0;z-index: 1000;');
         var content = document.createElement('div');
         content.setAttribute('style', 'color:#17303B;margin: auto;text-align: center;padding:  10px;background-color:#eee;border:2px solid #A0AD39;opacity: 0.9;font-family:arial');
-        content.textContent="hello";
+        content.textContent="v0.1 | ";
         content.append(createLink("<img>", rewriteImages));
         content.append(" | ");
         content.append(createLink("<table>", insertTable));
