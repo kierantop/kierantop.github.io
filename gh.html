@@ -1,0 +1,157 @@
+<html>
+<body>
+
+abc<br>
+def<br>
+<div>
+<textarea style="width:80%; height: 80%" id="wibble">hello
+    ![image](https://github.com/user-attachments/assets/3e29d6d7-de10-4f56-81ce-e61b09fc6160)
+
+    ![image](https://github.com/user-attachments/assets/3e29d6d7-de10-4f56-81ce-e61b09fc6160)
+
+</textarea>
+</div>
+
+<a href="javascript:(function () {
+    if (!window.ktoBookmarklet) {
+        var s = document.createElement('script');
+        s.setAttribute('src', './x.js');
+        document.body.append(s);        
+    } else {
+        window.ktoBookmarklet.toggleMenu();
+    }
+})()">&lt;gh&gt;</a>
+
+<a href="javascript:(function () {
+
+    /* Show modal, optionally anchor it to textarea (and fix to textarea's height) */
+    var showModal = (msg, parentEl, width) => {
+        var wrapper = document.createElement('div');
+        if (parentEl) {
+            wrapper.setAttribute('style', 'width:100%;height:0;position:relative;z-index: 1000;');
+        } else {
+            parentEl = document.body;
+            wrapper.setAttribute('style', 'width:100%;height:0;position:fixed;top:0;left:0;z-index: 1000;');
+        }
+        if (width) wrapper.style.width=width;
+        var content = document.createElement('div');
+        content.setAttribute('style', 'color:#17303B;margin: auto;text-align: center;padding:  10px;background-color:#eee;border:2px solid #A0AD39;opacity: 0.9;font-family:arial');
+        content.textContent=msg;
+        wrapper.appendChild(content);
+        parentEl.prepend(wrapper);
+        setTimeout(() => {wrapper.remove()}, 2000);
+    };
+
+    var test = document.location.protocol === 'file:';
+    if (!test && document.location.host !== 'github.com') {
+        showModal('Only run on github.com');
+        return false;
+    }
+
+    var t = test ? document.getElementsByTagName('textarea')[0] : document.activeElement;
+    if (!(t && t.type === 'textarea')) {
+        showModal('Please focus on a textarea');
+        return false;
+    }
+
+    var s = t.selectionStart;
+    var e = t.selectionEnd;
+    var msg = [];
+    var _in = 'selection';
+    if (!(s!==undefined && e!==undefined && e-s > 0)) {
+        t.focus(); document.execCommand('selectAll', false);
+        s = t.selectionStart;
+        e = t.selectionEnd;
+        _in = 'entire textarea';
+    }
+    var sel = t.value.substring(s, e);
+
+    var c = 0;
+    sel = sel.replaceAll(
+        /\!\[image\]\((https:\/\/github\.com\/user-attachments\/.*?)\)/g,
+        (s, p1) => { c+=1; return '<img width=30% src=' + p1 + '>'; }
+    );
+    msg.push('Replaced ' + c + ' occurence(s) of ![image](...) in ' + _in);
+    /* Apparently, deprecated, but it's the only way to preserve undo buffer */
+    if (document.execCommand) {
+        document.execCommand('insertText', false, sel);
+    } else {
+        msg.push('Beware, your undo buffer might misbehave.');
+        t.value = t.value.substring(0, s) + sel + t.value.substring(e);
+    }
+    showModal(msg.join(' '), t.parentElement, t.offsetWidth + 'px');
+    return false;
+})()">&lt;gh-img&gt;</a>
+
+
+<a href="javascript:(function () {
+    /* Show modal, optionally anchor it to textarea (and fix to textarea's height) */
+    var showModal = (msg, parentEl, width) => {
+        var wrapper = document.createElement('div');
+        if (parentEl) {
+            wrapper.setAttribute('style', 'width:100%;height:0;position:relative;z-index: 1000;');
+        } else {
+            parentEl = document.body;
+            wrapper.setAttribute('style', 'width:100%;height:0;position:fixed;top:0;left:0;z-index: 1000;');
+        }
+        if (width) wrapper.style.width=width;
+        var content = document.createElement('div');
+        content.setAttribute('style', 'color:#17303B;margin: auto;text-align: center;padding:  10px;background-color:#eee;border:2px solid #A0AD39;opacity: 0.9;font-family:arial');
+        content.textContent=msg;
+        wrapper.appendChild(content);
+        parentEl.prepend(wrapper);
+        setTimeout(() => {wrapper.remove()}, 2000);
+    };
+
+    var test = document.location.protocol === 'file:';
+    if (!test && document.location.host !== 'github.com') {
+        showModal('Only run on github.com');
+        return false;
+    }
+
+    var t = test ? document.getElementsByTagName('textarea')[0] : document.activeElement;
+    if (!(t && t.type === 'textarea')) {
+        showModal('Please focus on a textarea');
+        return false;
+    }
+    t.focus();
+    var s = t.selectionStart;
+    var e = t.selectionEnd;
+
+    var table = '
+<table>\r\n
+    <tr>\r\n
+        <th>\r\n
+        head1\r\n
+        </th>\r\n
+        <th>\r\n
+        head2\r\n
+        </th>\r\n
+    </tr>\r\n
+    <tr>\r\n
+        <td>\r\n
+        cell1\r\n
+        </td>\r\n
+        <td>\r\n
+        cell2\r\n
+        </td>\r\n
+    </tr>\r\n
+</table>\r\n';
+
+    var msg = [];
+
+    /* Apparently, deprecated, but it's the only way to preserve undo buffer */
+    if (document.execCommand) {
+        document.execCommand('insertText', false, table);
+    } else {
+        t.value = t.value.substring(0, s) + table + t.value.substring(e);
+        msg.push('Beware, your undo buffer might misbehave.');
+    }
+    msg.push('Inserted table at cursor');
+    showModal(msg.join(' '), t.parentElement, t.offsetWidth + 'px');
+    return false;
+    
+
+})()">&lt;gh-table&gt;</a>
+
+</body>
