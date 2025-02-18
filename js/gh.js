@@ -2,7 +2,7 @@
 
     var ktoBookmarklet = {menuDisplayed: false};
 
-    var test = document.location.protocol === 'file:';
+    var test = document.location.protocol === 'file:' || document.location.host === 'kierantop.github.io';
     if (!test && document.location.host !== 'github.com') {
         alert('Only run on github.com');
         return false;
