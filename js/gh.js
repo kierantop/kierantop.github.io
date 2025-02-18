@@ -75,7 +75,14 @@
     };
 
     var insertDetails = () => {
-        insert("details", "abc");
+        insert("details", `
+<details>
+    <summary>
+        summary
+    </summary>
+    details
+</details>
+`);
     }
 
     var insertTable = () => {
