@@ -143,7 +143,7 @@ if (window.ktoBookmarklet) {
 				style: 'color:#17303B;margin:auto;text-align:center;padding:10px;background-color:#eee;border:2px solid #A0AD39;opacity:0.9;font-family:arial'
 			});
 			[
-				'v0.1 | ',
+				'v0.2 | ',
 				createLink('<img>', rewriteImages),
 				' | ',
 				createLink('<table>', insertTable),
