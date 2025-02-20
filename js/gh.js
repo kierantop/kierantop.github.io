@@ -5,9 +5,8 @@ if (window.ktoBookmarklet) {
 	(function() {
 
 		var kto = {};
-		var menuDisplayed = false;
 		var document = window.document;
-
+		var menuEl;
 		var test = document.location.protocol === 'file:' || document.location.host === 'kierantop.github.io';
 		if (!test && document.location.host !== 'github.com') {
 			alert('Only run on github.com');
@@ -15,7 +14,11 @@ if (window.ktoBookmarklet) {
 		}
 
 		var showMessage = (msg, raise) => {
-			alert(msg);
+			var msgEl = document.createElement('div');
+			msgEl.setAttribute('style', 'border-radius:3px;width:fit-content;padding:3px;background-color:red;color:yellow;margin:10px auto -9px auto;');
+			msgEl.textContent = msg;
+			menuEl.children[0].append(msgEl);
+			setTimeout(()=>msgEl.remove(), 2000);
 			if (raise) throw(msg);
 		};
 
@@ -126,8 +129,8 @@ if (window.ktoBookmarklet) {
 		};
 
 		var showMenu = () => {
-			var w = kto.el = document.createElement('div');
-			w.setAttribute('style', 'width:100%;height:0;position:fixed;top:0;left:0;z-index:1000;');
+			menuEl = document.createElement('div');
+			menuEl.setAttribute('style', 'width:100%;height:0;position:fixed;top:0;left:0;z-index:1000;');
 			var c = document.createElement('div');
 			c.setAttribute('style', 'color:#17303B;margin:auto;text-align:center;padding:10px;background-color:#eee;border:2px solid #A0AD39;opacity:0.9;font-family:arial');
 			[
@@ -138,18 +141,17 @@ if (window.ktoBookmarklet) {
 				' | ',
 				createLink('<details>', insertDetails)
 			].forEach(x => c.append(x));
-			w.appendChild(c);
-			document.body.append(w);
-			menuDisplayed = true;
+			menuEl.appendChild(c);
+			document.body.append(menuEl);
 		};
 
 		var hideMenu = () => {
-			kto.el.remove();
-			menuDisplayed = false;
+			menuEl.remove();
+			menuEl = null;
 		};
 
 		var toggleMenu = () => {
-			if (menuDisplayed) hideMenu();
+			if (menuEl) hideMenu();
 			else showMenu();
 		};
 
