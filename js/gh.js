@@ -13,32 +13,32 @@ if (window.ktoBookmarklet) {
 			return false;
 		}
 
-		var showMessage = (msg) => {
+		var showMessage = (msg, raise) => {
 			alert(msg);
+			if (raise) throw(msg);
 		};
 
 		var getActiveTA = () => {
 			var t = document.activeElement;
 			if (!(t && t.type === 'textarea')) {
-				showMessage('Please focus on a textarea');
-				throw('abc');
+				showMessage('Please focus on a textarea', true);
 			}
 			return [t, t.selectionStart, t.selectionEnd];
 		};
 
 		var rewriteImages = function () {
 
-			var t, s, e = getActiveTA();
+			var [textarea, s, e] = getActiveTA();
 
 			var msg = [];
 			var _in = 'selection';
 			if (!(s!==undefined && e!==undefined && e-s > 0)) {
-				t.focus(); document.execCommand('selectAll', false);
-				s = t.selectionStart;
-				e = t.selectionEnd;
+				textarea.focus(); document.execCommand('selectAll', false);
+				s = textarea.selectionStart;
+				e = textarea.selectionEnd;
 				_in = 'entire textarea';
 			}
-			var sel = t.value.substring(s, e);
+			var sel = textarea.value.substring(s, e);
 		
 			var c = 0;
 			sel = sel.replaceAll(
@@ -51,15 +51,15 @@ if (window.ktoBookmarklet) {
 				document.execCommand('insertText', false, sel);
 			} else {
 				msg.push('Beware, your undo buffer might misbehave.');
-				t.value = t.value.substring(0, s) + sel + t.value.substring(e);
+				textarea.value = textarea.value.substring(0, s) + sel + textarea.value.substring(e);
 			}
-			showMessage(msg.join(' '), t.parentElement, t.offsetWidth + 'px');
+			showMessage(msg.join(' '), textarea.parentElement, textarea.offsetWidth + 'px');
 		};
 
 	
 		var insert = (name, str) => {
 			
-			var t, s, e = getActiveTA();
+			var [t, s, e] = getActiveTA();
 
 			var msg = [];
 
@@ -74,37 +74,38 @@ if (window.ktoBookmarklet) {
 			showMessage(msg.join(' '));
 		};
 
-		var rpl = (s) => s.replaceAll(/\t/g,'    ').replaceAll(/\r?\n/g, '\r\n');
+		var rpl = (s) => s.replaceAll(/^(\s+)/gm,'$1$1$1$1').replaceAll(/\n/g, '\r\n');
 
 		var insertDetails = () => {
 			insert('details', rpl(`<details>
-		<summary>
-			summary
-		</summary>
-		details
-	</details>
+ <summary>
+  summary
+ </summary>
+ details
+</details>
 `));
 		};
 
 		var insertTable = () => {
 			insert('table', rpl(`<table>
-	<tr>
-		<th>
-			head1
-		</th>
-		<th>
-			head2
-		</th>
-	</tr>
-	<tr>
-		<td>
-			cell1
-		</td>
-		<td>
-			cell2
-		</td>
-	</tr>
-</table>`));
+ <tr>
+  <th>
+   head1
+  </th>
+  <th>
+   head2
+  </th>
+ </tr>
+ <tr>
+  <td>
+   cell1
+  </td>
+  <td>
+   cell2
+  </td>
+ </tr>
+</table>
+`));
 		};
 
 		var createLink = (name, fn) => {
@@ -116,6 +117,9 @@ if (window.ktoBookmarklet) {
 			a.onmouseup = function(e) {
 				e.preventDefault();
 				fn();
+			};
+			a.onclick = function(e) {
+				e.preventDefault();
 			};
 			return a;
 		};

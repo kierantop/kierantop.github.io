@@ -3,7 +3,9 @@
 <body>
 
 	<div>
-<textarea style="width:50%; height: 50%" id="wibble">hello
+<textarea style="width:50%; height: 50%" id="wibble">
+A couple of images in "raw" github-flavored-markup format:
+
     ![image](https://github.com/user-attachments/assets/3e29d6d7-de10-4f56-81ce-e61b09fc6160)
 
     ![image](https://github.com/user-attachments/assets/3e29d6d7-de10-4f56-81ce-e61b09fc6160)
@@ -11,59 +13,26 @@
 </textarea>
 	</div>
 
-	<a href="javascript:(function () {
+	<a href="javascript:(function () {/*M1*/
+window.ktoBookmarklet?window.ktoBookmarklet.toggleMenu():function(){var r,u,a,e,t,n,o,i,d,l={menuDisplayed:!1},s=window.document;'file:'===s.location.protocol||'kierantop.github.io'===s.location.host||'github.com'===s.location.host?(r=(e,t)=>{if(alert(e),t)throw e},u=()=>{var e=s.activeElement;return e&&'textarea'===e.type||r('Please focus on a textarea',!0),[e,e.selectionStart,e.selectionEnd]},a=function(){var[e,t,a]=u(),n=[],o='selection',i=(void 0!==t&&void 0!==a&&0<a-t||(e.focus(),s.execCommand('selectAll',!1),t=e.selectionStart,a=e.selectionEnd,o='entire textarea'),e.value.substring(t,a)),l=0,i=i.replaceAll(/\!\[image\]\((https:\/\/github\.com\/user-attachments\/.*?)\)/g,(e,t)=>(l+=1,'<img width=30% src='+t+'>'));n.push('Replaced '+l+' occurence(s) of ![image](...) in '+o),s.execCommand?s.execCommand('insertText',!1,i):(n.push('Beware, your undo buffer might misbehave.'),e.value=e.value.substring(0,t)+i+e.value.substring(a)),r(n.join(' '),e.parentElement,e.offsetWidth)},e=(e,t)=>{var[a,n,o]=u(),i=[];s.execCommand?s.execCommand('insertText',!1,t):(a.value=a.value.substring(0,n)+t+a.value.substring(o),i.push('Beware, your undo buffer might misbehave.')),i.push('Inserted '+e+' at cursor'),r(i.join(' '))},t=e=>e.replaceAll(/^(\s+)/gm,'$1$1$1$1').replaceAll(/\n/g,'\r\n'),n=()=>{e('details',t('<details>\n <summary>\n  summary\n </summary>\n details\n</details>\n'))},o=()=>{e('table',t('<table>\n <tr>\n  <th>\n   head1\n  </th>\n  <th>\n   head2\n  </th>\n </tr>\n <tr>\n  <td>\n   cell1\n  </td>\n  <td>\n   cell2\n  </td>\n </tr>\n</table>\n'))},i=(e,t)=>{var a=s.createElement('a');return a.setAttribute('href','#'),a.textContent=e,a.onmousedown=function(e){e.preventDefault()},a.onmouseup=function(e){e.preventDefault(),t()},a.onclick=function(e){e.preventDefault()},a},l.toggleMenu=d=()=>{var e,t;l.menuDisplayed?(l.el.remove(),l.menuDisplayed=!1):((e=l.el=s.createElement('div')).setAttribute('style','width:100%;height:0;position:fixed;top:0;left:0;z-index: 1000;'),(t=s.createElement('div')).setAttribute('style','color:#17303B;margin: auto;text-align: center;padding:  10px;background-color:#eee;border:2px solid #A0AD39;opacity: 0.9;font-family:arial'),t.textContent='v0.1 | ',t.append(i('<img>',a)),t.append(' | '),t.append(i('<table>',o)),t.append(' | '),t.append(i('<details>',n)),e.appendChild(t),s.body.append(e),l.menuDisplayed=!0)},d(),window.ktoBookmarklet=l):alert('Only run on github.com')}();
 
-		window.ktoBookmarklet?window.ktoBookmarklet.toggleMenu():function(){var r,s,a,e,t,n,o,i,d,l={menuDisplayed:!1},u=window.document;'file:'===u.location.protocol||'kierantop.github.io'===u.location.host||'github.com'===u.location.host?(r=e=>{alert(e)},s=()=>{var e=u.activeElement;if(!e||'textarea'!==e.type)throw r('Please focus on a textarea'),'abc';return[e,e.selectionStart,e.selectionEnd]},a=function(){var e,t,a=s(),n=[],o='selection',i=(void 0!==t&&void 0!==a&&0<a-t||(e.focus(),u.execCommand('selectAll',!1),t=e.selectionStart,a=e.selectionEnd,o='entire textarea'),e.value.substring(t,a)),l=0,i=i.replaceAll(/\!\[image\]\((https:\/\/github\.com\/user-attachments\/.*?)\)/g,(e,t)=>(l+=1,'<img width=30% src='+t+'>'));n.push('Replaced '+l+' occurence(s) of ![image](...) in '+o),u.execCommand?u.execCommand('insertText',!1,i):(n.push('Beware, your undo buffer might misbehave.'),e.value=e.value.substring(0,t)+i+e.value.substring(a)),r(n.join(' '),e.parentElement,e.offsetWidth)},e=(e,t)=>{var a,n=s(),o=[];u.execCommand?u.execCommand('insertText',!1,t):(a.value=a.value.substring(0,void 0)+t+a.value.substring(n),o.push('Beware, your undo buffer might misbehave.')),o.push('Inserted '+e+' at cursor'),r(o.join(' '))},t=e=>e.replaceAll(/\t/g,'    ').replaceAll(/\r?\n/g,'\r\n'),n=()=>{e('details',t(`<details>
-			<summary>
-					summary
-			</summary>
-			details
-	</details>
-`))},o=()=>{e('table',t(`<table>
-	<tr>
-			<th>
-					head1
-			</th>
-			<th>
-					head2
-			</th>
-	</tr>
-	<tr>
-			<td>
-					cell1
-			</td>
-			<td>
-					cell2
-			</td>
-	</tr>
-</table>`))},i=(e,t)=>{var a=u.createElement('a');return a.setAttribute('href','#'),a.textContent=e,a.onmousedown=function(e){e.preventDefault()},a.onmouseup=function(e){e.preventDefault(),t()},a},l.toggleMenu=d=()=>{var e,t;l.menuDisplayed?(l.el.remove(),l.menuDisplayed=!1):((e=l.el=u.createElement('div')).setAttribute('style','width:100%;height:0;position:fixed;top:0;left:0;z-index: 1000;'),(t=u.createElement('div')).setAttribute('style','color:#17303B;margin: auto;text-align: center;padding:  10px;background-color:#eee;border:2px solid #A0AD39;opacity: 0.9;font-family:arial'),t.textContent='v0.1 | ',t.append(i('<img>',a)),t.append(' | '),t.append(i('<table>',o)),t.append(' | '),t.append(i('<details>',n)),e.appendChild(t),u.body.append(e),l.menuDisplayed=!0)},d(),window.ktoBookmarklet=l):alert('Only run on github.com')}();
-	})()">&lt;gh&gt;
+/*M2*/})()">&lt;gh&gt;
 	</a>
-
-	<a href="javascript:(function () {
-		var s = document.createElement('script');
-	    s.textContent = 'alert(\'hello\');';
-		document.body.append(s);
-	})()">&lt;gh2&gt;
-	</a>
-
 
 	<p>
-		Useful:
+		<b>Build:</b> ./build/build.sh
+	</p>
+	<p>
+		<b>Useful:</b>
 		<ul>
 			<li>https://gist.github.com/asidko/9c7064027039411a11323eaf7d8ea2a4
 			<li>https://www.npmjs.com/package/uglify-js
 		</ul>
 	</p>
 	<p>
-		TODO
+		<b>TODO:</b>
 		<ul>
-			<li>
-				A build pipeline to:
-				<ol>
-					<li>uglifyjs js/gh.js -c -m -O quote_style=1
-					<li>gh.html with result of (1.)
-				</ol>
+			<li>Further minify strings
 		</ul>
 	</p>
 
