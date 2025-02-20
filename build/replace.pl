@@ -8,10 +8,11 @@ sub f {
    my $c = shift;
    $c =~ s/\r?\n/\\n/g;
    return "'" . $c . "'";
-   # return $c . $c;
 }
 
 $js =~ s/`(.*?)`/f($1)/egs;
+
+print "Length = " . length($js) . "\n";
 
 open FH, '<', 'gh.html' or die "Can't open file $!";
 my $html = do { local $/; <FH> };

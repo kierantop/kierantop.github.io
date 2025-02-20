@@ -4,7 +4,8 @@ if (window.ktoBookmarklet) {
 
 	(function() {
 
-		var kto = {menuDisplayed: false};
+		var kto = {};
+		var menuDisplayed = false;
 		var document = window.document;
 
 		var test = document.location.protocol === 'file:' || document.location.host === 'kierantop.github.io';
@@ -53,7 +54,7 @@ if (window.ktoBookmarklet) {
 				msg.push('Beware, your undo buffer might misbehave.');
 				textarea.value = textarea.value.substring(0, s) + sel + textarea.value.substring(e);
 			}
-			showMessage(msg.join(' '), textarea.parentElement, textarea.offsetWidth + 'px');
+			showMessage(msg.join(' '));
 		};
 
 	
@@ -74,7 +75,7 @@ if (window.ktoBookmarklet) {
 			showMessage(msg.join(' '));
 		};
 
-		var rpl = (s) => s.replaceAll(/^(\s+)/gm,'$1$1$1$1').replaceAll(/\n/g, '\r\n');
+		var rpl = (s) => s.replaceAll(/^(\s+)/gm,'$1$1$1$1'); /*.replaceAll(/\n/g, '\r\n'); */
 
 		var insertDetails = () => {
 			insert('details', rpl(`<details>
@@ -126,27 +127,29 @@ if (window.ktoBookmarklet) {
 
 		var showMenu = () => {
 			var w = kto.el = document.createElement('div');
-			w.setAttribute('style', 'width:100%;height:0;position:fixed;top:0;left:0;z-index: 1000;');
+			w.setAttribute('style', 'width:100%;height:0;position:fixed;top:0;left:0;z-index:1000;');
 			var c = document.createElement('div');
-			c.setAttribute('style', 'color:#17303B;margin: auto;text-align: center;padding:  10px;background-color:#eee;border:2px solid #A0AD39;opacity: 0.9;font-family:arial');
-			c.textContent='v0.1 | ';
-			c.append(createLink('<img>', rewriteImages));
-			c.append(' | ');
-			c.append(createLink('<table>', insertTable));
-			c.append(' | ');
-			c.append(createLink('<details>', insertDetails));
+			c.setAttribute('style', 'color:#17303B;margin:auto;text-align:center;padding:10px;background-color:#eee;border:2px solid #A0AD39;opacity:0.9;font-family:arial');
+			[
+				'v0.1 | ',
+				createLink('<img>', rewriteImages),
+				' | ',
+				createLink('<table>', insertTable),
+				' | ',
+				createLink('<details>', insertDetails)
+			].forEach(x => c.append(x));
 			w.appendChild(c);
 			document.body.append(w);
-			kto.menuDisplayed = true;
+			menuDisplayed = true;
 		};
 
 		var hideMenu = () => {
 			kto.el.remove();
-			kto.menuDisplayed = false;
+			menuDisplayed = false;
 		};
 
 		var toggleMenu = () => {
-			if (kto.menuDisplayed) hideMenu();
+			if (menuDisplayed) hideMenu();
 			else showMenu();
 		};
 
