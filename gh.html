@@ -1,23 +1,84 @@
 <html>
 
+<style>
+	body {
+		padding-left: 20%;
+		padding-right: 20%;
+		font-family: Arial, Helvetica, sans-serif;
+	}
+	textarea { font-family: Arial, Helvetica, sans-serif; }
+	a.bm {
+		display: inline-block;
+		padding: 5px;
+		background-color: #888;
+		color: white;
+		border: 2px solid black;
+		border-radius: 3px;
+		text-decoration: none;
+	}
+	a.bm:hover {
+		color: #888;
+		background-color: white;
+	}
+	.p { margin-top: 10px; }
+	.c { text-align: center; }
+
+</style>
 <body>
 
-	<div>
-<textarea style="width:50%; height: 50%" id="wibble">
-A couple of images in "raw" github-flavored-markup format:
-
-    ![image](https://github.com/user-attachments/assets/3e29d6d7-de10-4f56-81ce-e61b09fc6160)
-
-    ![image](https://github.com/user-attachments/assets/3e29d6d7-de10-4f56-81ce-e61b09fc6160)
-
-</textarea>
-	</div>
-
-	<a href="javascript:(function () {/*M1*/
-window.ktoBookmarklet?window.ktoBookmarklet.toggleMenu():function(){var a,r,i,l,c,d,u,e,t,m,h,o,p={},s=window['document'],n=s['location'],{host:n,protocol:g}=n;'file:'===g||'kierantop.github.io'===n||'github.com'===n?(r=(e,t,o)=>{var a=s.createElement(e);return Object.keys(t||{}).forEach(e=>{a.setAttribute(e,t[e])}),o&&(a.textContent=o),a},i=(e,t)=>{var o=r('div',{style:'border-radius:3px;width:fit-content;padding:3px;background-color:red;color:yellow;margin:10px auto -9px auto;'},e);if(a.children[0].append(o),setTimeout(()=>o.remove(),2e3),t)throw e},l=()=>{var e=s.activeElement;return e&&'textarea'===e.type||i('Please focus on a textarea',!0),[e,e.selectionStart,e.selectionEnd]},c=()=>{var[e]=l();e.style.fontFamily?e.style.fontFamily='':e.style.fontFamily='Courier'},d=(e,t,o,a)=>{s.execCommand?s.execCommand('insertText',!1,a):(i('Beware, your undo buffer might misbehave.'),e.value=e.value.substring(0,t)+a+e.value.substring(o))},u=()=>{var[e,t,o]=l(),a='selection',r=(void 0!==t&&void 0!==o&&0<o-t||(e.focus(),s.execCommand('selectAll',!1),t=e.selectionStart,o=e.selectionEnd,a='entire textarea'),e.value.substring(t,o)),n=0,r=r.replaceAll(/\!\[image\]\((https:\/\/github\.com\/user-attachments\/.*?)\)/g,(e,t)=>(n+=1,'<img width=30% src='+t+'>'));d(e,t,o,r),i('Replaced '+n+' occurence(s) of ![image](...) in '+a)},e=(e,t)=>{var[o,a,r]=l();d(o,a,r,t),i('Inserted '+e+' at cursor')},t=e=>e.replaceAll(/^(\s+)/gm,'$1$1$1$1'),m=()=>{e('details',t('<details>\n <summary>\n  summary\n </summary>\n details\n</details>\n'))},h=()=>{e('table',t('<table>\n <tr>\n  <th>\n   head1\n  </th>\n  <th>\n   head2\n  </th>\n </tr>\n <tr>\n  <td>\n   cell1\n  </td>\n  <td>\n   cell2\n  </td>\n </tr>\n</table>\n'))},o=(e,t)=>{e=r('a',{href:'#'},e);return e.onmousedown=e.onclick=e=>{e.preventDefault()},e.onmouseup=e=>{e.preventDefault(),t()},e},(p.toggleMenu=()=>{var t;a?(a.remove(),a=null):(a=r('div',{style:'width:100%;height:0;position:fixed;top:0;left:0;z-index:1000;'}),t=r('div',{style:'color:#17303B;margin:auto;text-align:center;padding:10px;background-color:#eee;border:2px solid #A0AD39;opacity:0.9;font-family:arial'}),['v0.2 | ',o('<img>',u),' | ',o('<table>',h),' | ',o('<details>',m),' | ',o('<font>',c),' | '].forEach(e=>t.append(e)),t.insertAdjacentHTML('beforeend','<a target=\'_blank\' href=\'https://kierantop.github.io/gh.html\'>about</a>'),a.appendChild(t),s.body.append(a))})(),window.ktoBookmarklet=p):alert('Only run on github.com')}();
+	<h1>Github Markdown Helper Bookmarklet</h1>
+	<h2>Intro</h2>
+	<h2>Bookmarklet</h2>
+	<div class="p">
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="bm" href="javascript:(function () {/*M1*/
+window.ktoBookmarklet?window.ktoBookmarklet.toggleMenu():function(){var a,r,l,i,s,d,u,e,t,m,h,o,p={},c=window['document'],n=c['location'],{host:n,protocol:g}=n,v='github.com';'file:'===g||'kierantop.github.io'===n||n===v?(r=(e,t,o)=>{var a=c.createElement(e);return Object.keys(t||{}).forEach(e=>{a.setAttribute(e,t[e])}),o&&(a.textContent=o),a},l=(e,t)=>{var o=r('div',{style:'border-radius:3px;width:fit-content;padding:3px;background-color:red;color:yellow;margin:10px auto -9px auto;'},e);if(a.children[0].append(o),setTimeout(()=>o.remove(),2e3),t)throw e},i=()=>{var e=c.activeElement;return e&&'textarea'===e.type||l('Please focus on a textarea',!0),[e,e.selectionStart,e.selectionEnd]},s=()=>{var[e]=i(),[e,t,o]=[e.style,'fontFamily','Courier'];e[t]?e[t]='':(e[t]=o,l('Switched font to '+o+'; click again to revert'))},d=(e,t,o,a)=>{var r,n,i;n=!(r='insertText'),i=a,c.execCommand?c.execCommand(r,n,i):(l('Beware, your undo buffer might misbehave.'),e.value=e.value.substring(0,t)+a+e.value.substring(o))},u=()=>{var[e,t,o]=i(),a='selection',r=(void 0!==t&&void 0!==o&&0<o-t||(e.focus(),c.execCommand('selectAll',!1),t=e.selectionStart,o=e.selectionEnd,a='entire textarea'),e.value.substring(t,o)),n=0,r=r.replaceAll(/\!\[image\]\((https:\/\/github\.com\/user-attachments\/.*?)\)/g,(e,t)=>(n+=1,'<img width=30% src='+t+'>'));d(e,t,o,r),l('Replaced '+n+' occurence(s) of ![image](...) in '+a)},e=(e,t)=>{var[o,a,r]=i();d(o,a,r,t),l('Inserted '+e+' at cursor')},t=e=>e.replaceAll(/^(\s+)/gm,'$1$1$1$1'),m=()=>{e('details',t('<details>\n <summary>\n  summary\n </summary>\n details\n</details>\n'))},h=()=>{e('table',t('<table>\n <tr>\n  <th>\n   head1\n  </th>\n  <th>\n   head2\n  </th>\n </tr>\n <tr>\n  <td>\n   cell1\n  </td>\n  <td>\n   cell2\n  </td>\n </tr>\n</table>\n'))},o=(e,t)=>{e=r('a',{href:'#'},e);return e.onmousedown=e.onclick=e=>{e.preventDefault()},e.onmouseup=e=>{e.preventDefault(),t()},e},(p.toggleMenu=()=>{var t;a?(a.remove(),a=null):(a=r('div',{style:'width:100%;height:0;position:fixed;top:0;left:0;z-index:1000;'}),t=r('div',{style:'color:#17303B;margin:auto;text-align:center;padding:10px;background-color:#eee;border:2px solid #A0AD39;opacity:0.9;font-family:arial'}),['v0.2 | ',o('<img>',u),' | ',o('<table>',h),' | ',o('<details>',m),' | ',o('<font>',s),' | '].forEach(e=>t.append(e)),t.insertAdjacentHTML('beforeend','<a target=\'_blank\' href=\'https://kierantop.github.io/gh.html\'>about</a>'),a.appendChild(t),c.body.append(a))})(),window.ktoBookmarklet=p):alert('Only run on '+v)}();
 
 /*M2*/})()">&lt;gh&gt;
 	</a>
+	</div>
+
+	<div class="p">
+		To experiment in the playground <code>&lt;textarea&gt;</code> (below) click the bookmarklet.
+	</div>
+
+	<div class="p">
+		Or drag it to your bookmarks/favorites bar, navigate to GitHub and test it on a <code>&lt;textarea&gt;</code> there. 
+	</div>
+
+	<div class="p">
+		In both cases, you should see the following menu appear at the top of the page:
+		<div>
+			<img width=50% src="./img/menu.png">
+		</div>
+	</div>
+
+	<h2>Playground</h2>
+
+	<div>
+<textarea style="width:100%; height: 50%" id="wibble">
+Images
+======
+When an image is pasted into markdown-enabled textarea on Github, the following markdown elements are added. When GitHub renders them, it does so at 100% of the image pixel size, unless the image is wider than the enclosing block, in which case it's shrunk to size. This behaviour almost always leaves images looking too big. Using the <img> link you can turn them into <img> elements rendered at 30% of the enclosing block width. If 30% doesn't suit, it's easy to modify. Try it by selecting one of the following images (or by simply focusing on the textarea, for ALL images) and hitting the <img> link.
+
+    ![image](https://github.com/user-attachments/assets/3e29d6d7-de10-4f56-81ce-e61b09fc6160)
+
+    ![image](https://github.com/user-attachments/assets/3e29d6d7-de10-4f56-81ce-e61b09fc6160)
+
+Indenting
+=========
+It can be hard to indent code in a textarea if it's a variable width font (like on GitHub). Things don't quite align properly. Look at the following and then experiment with using use the <font> button to toggle between the original font and a fixed-width one.
+
+/* Comment */
+// Comment
+myFunc() {
+   if(condition) {
+      doSomething();
+   }
+}
+
+
+</textarea>
+	</div>
 
 	<p>
 		<b>Build:</b> ./build/build.sh
@@ -33,6 +94,8 @@ window.ktoBookmarklet?window.ktoBookmarklet.toggleMenu():function(){var a,r,i,l,
 		<b>TODO:</b>
 		<ul>
 			<li>Prettify this page.
+			<li>Write about undo/deprecation.
+			<li>Write about build process (plus host the full-length js, and link to the gh repo).
 		</ul>
 	</p>
 

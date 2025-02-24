@@ -10,8 +10,9 @@ if (window.ktoBookmarklet) {
 		var {host,protocol} = location;
 		var menuEl;
 		var test = protocol === 'file:' || host === 'kierantop.github.io';
-		if (!test && host !== 'github.com') {
-			alert('Only run on github.com');
+		var github = 'github.com';
+		if (!test && host !== github) {
+			alert('Only run on '+github);
 			return false;
 		}
 
@@ -41,10 +42,12 @@ if (window.ktoBookmarklet) {
 
 		var toggleFont = () => {
 			var [textarea] = getActiveTA();
-			if (textarea.style.fontFamily) {
-				textarea.style.fontFamily = '';
+			var [style,fontFamily,courier] = [textarea.style,'fontFamily','Courier']; 
+			if (style[fontFamily]) {
+				style[fontFamily] = '';
 			} else {
-				textarea.style.fontFamily = 'Courier';
+				style[fontFamily] = courier;
+				showMessage('Switched font to ' + courier + '; click again to revert');
 			}
 		};
 
