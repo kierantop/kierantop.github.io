@@ -21,7 +21,7 @@ if (window.ktoBookmarklet) {
 			Object.keys(attrs||{}).forEach(k => {el.setAttribute(k,attrs[k])});
 			text ? el.textContent = text : 0;
 			return el;
-		}
+		};
 
 		var showMessage = (msg, raise) => {
 			var msgEl = createEl('div', {
@@ -42,12 +42,14 @@ if (window.ktoBookmarklet) {
 
 		var toggleFont = () => {
 			var [textarea] = getActiveTA();
-			var [style,fontFamily,courier] = [textarea.style,'fontFamily','Courier']; 
+			var [style,fontFamily,courier,whiteSpace,nowrap] = [textarea.style,'fontFamily','Courier','whiteSpace','nowrap']; 
 			if (style[fontFamily]) {
 				style[fontFamily] = '';
+				style[whiteSpace] = '';
 			} else {
 				style[fontFamily] = courier;
-				showMessage('Switched font to ' + courier + '; click again to revert');
+				style[whiteSpace] = nowrap;
+				showMessage('Switched font to ' + courier + ' and white-space to ' + nowrap + '; click again to revert');
 			}
 		};
 
@@ -61,7 +63,7 @@ if (window.ktoBookmarklet) {
 				showMessage(undoWarning);
 				textarea.value = textarea.value.substring(0, s) + str + textarea.value.substring(e);
 			}
-		}
+		};
 
 		var rewriteImages = () => {
 
@@ -126,15 +128,22 @@ if (window.ktoBookmarklet) {
 `));
 		};
 
-		var createLink = (name, fn) => {
-			var a = createEl('a', {href: '#'}, name);
-			/* Catch clicks without grabbing focus */
-			/* Prevent the href being followed */
-			a.onmousedown = a.onclick = (e) => { e.preventDefault(); };
-			a.onmouseup = (e) => {
-				e.preventDefault();
-				fn();
-			};
+		var createLink = (name, fn, title) => {
+			var preventDefault = (e) => e.preventDefault();
+			var a = createEl('a', {
+				href: '#',
+				title: title,
+				style: 'text-decoration: none'
+			}, name);
+			Object.assign(a, {
+				onmouseover: (e) => e.target.style.textDecoration = 'underline',
+				onmouseout: (e) => e.target.style.textDecoration = 'none',
+				/* Catch clicks without grabbing focus */
+				/* Prevent the href being followed */
+				onmousedown: preventDefault,
+				onclick: preventDefault,
+				onmouseup: (e) => { preventDefault(e); fn() }
+			});
 			return a;
 		};
 
@@ -143,20 +152,20 @@ if (window.ktoBookmarklet) {
 				style: 'width:100%;height:0;position:fixed;top:0;left:0;z-index:1000;'
 			});
 			var c = createEl('div', {
-				style: 'color:#17303B;margin:auto;text-align:center;padding:10px;background-color:#eee;border:2px solid #A0AD39;opacity:0.9;font-family:arial'
+				style: 'color:#17303B;margin:auto;text-align:center;padding:10px;background-color:#eee;border:2px solid #A0AD39;opacity:0.95;font-family:arial'
 			});
 			[
-				'v0.2 | ',
-				createLink('<img>', rewriteImages),
+				'v0.3 | ',
+				createLink('<img>', rewriteImages, 'Rewrite ![image] to <img>'),
 				' | ',
-				createLink('<table>', insertTable),
+				createLink('<table>', insertTable, 'Insert <table>'),
 				' | ',
-				createLink('<details>', insertDetails),
+				createLink('<details>', insertDetails, 'Insert <details>'),
 				' | ',
-				createLink('<font>', toggleFont),
-				' | '
+				createLink('Aa↩', toggleFont, 'Fixed-width font, no wrap'),
+				' | ',
+				createLink('about', () => {location.href='https://kierantop.github.io/gh.html'}, 'About'),				
 			].forEach(x => c.append(x));
-			c.insertAdjacentHTML('beforeend', '<a target=\'_blank\' href=\'https://kierantop.github.io/gh.html\'>about</a>');
 			menuEl.appendChild(c);
 			document.body.append(menuEl);
 		};
