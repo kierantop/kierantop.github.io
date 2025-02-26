@@ -9,7 +9,12 @@ uglifyjs js/compiled/gh.js -c -m -O quote_style=1 >js/compiled/gh.min.js
 echo Building gh.html from gh.tmpl.html
 perl ./build/replace.pl gh.tmpl.html js/compiled/gh.js js/compiled/gh.min.js >gh.html
 
-ls -l js/gh.js
-ls -l js/compiled/gh.js
-ls -l js/compiled/gh.min.js
-ls -l gh.html
+f() {
+    SIZE=$(stat --format "%s" $1)
+    printf "%5d %-25s %s\n" "$SIZE" "$1" "$2"
+}
+
+f js/gh.js "Source javascript"
+f js/compiled/gh.js "Preprocessed javascript"
+f js/compiled/gh.min.js "Minimised javascript"
+f gh.html "Compiled html"
