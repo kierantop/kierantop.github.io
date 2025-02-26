@@ -1,0 +1,103 @@
+<html>
+
+<style>
+	body {
+		padding-left: 20%;
+		padding-right: 20%;
+		font-family: Arial, Helvetica, sans-serif;
+	}
+	textarea { font-family: Arial, Helvetica, sans-serif; }
+	a.bm {
+		display: inline-block;
+		padding: 5px;
+		background-color: #888;
+		color: white;
+		border: 2px solid black;
+		border-radius: 3px;
+		text-decoration: none;
+	}
+	a.bm:hover {
+		color: #888;
+		background-color: white;
+	}
+	.p { margin-top: 10px; }
+	.c { text-align: center; }
+
+</style>
+<body>
+
+	<h1>Github Markdown Helper Bookmarklet</h1>
+	<h2>Intro</h2>
+	<h2>Bookmarklet</h2>
+	<div class="p">
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="bm" href="javascript:(function () {/*MINIFIEDJS*/})()">&lt;gh&gt;
+	</a>
+	</div>
+
+	<div class="p">
+		To experiment in the playground <code>&lt;textarea&gt;</code> (below) click the bookmarklet.
+	</div>
+
+	<div class="p">
+		Or drag it to your bookmarks/favorites bar, navigate to GitHub and test it on a <code>&lt;textarea&gt;</code> there. 
+	</div>
+
+	<div class="p">
+		In both cases, you should see the following menu appear at the top of the page:
+		<div>
+			<img width=50% src="./img/menu.png">
+		</div>
+	</div>
+
+	<h2>Playground</h2>
+
+	<div>
+<textarea style="width:100%; height: 50%" id="wibble">
+Images
+======
+When an image is pasted into markdown-enabled textarea on Github, the following markdown elements are added. When GitHub renders them, it does so at 100% of the image pixel size, unless the image is wider than the enclosing block, in which case it's shrunk to size. This behaviour almost always leaves images looking too big. Using the <img> link you can turn them into <img> elements rendered at 30% of the enclosing block width. If 30% doesn't suit, it's easy to modify. Try it by selecting one of the following images (or by simply focusing on the textarea, for ALL images) and hitting the <img> link.
+
+    ![image](https://github.com/user-attachments/assets/3e29d6d7-de10-4f56-81ce-e61b09fc6160)
+
+    ![image](https://github.com/user-attachments/assets/3e29d6d7-de10-4f56-81ce-e61b09fc6160)
+
+Indenting
+=========
+It can be hard to indent code in a textarea if it's a variable width font (like on GitHub). Things don't quite align properly. Look at the following and then experiment with using use the <font> button to toggle between the original font and a fixed-width one.
+
+/* Comment */
+// Comment
+myFunc() {
+   if(condition) {
+      doSomething();
+   }
+}
+
+
+</textarea>
+	</div>
+
+	<p>
+		<b>Build:</b> ./build/build.sh<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="bm" href="javascript:(function () {/*UNMINIFIEDJS*/})()">&lt;gh-unminified&gt;</a>
+						
+	</p>
+	<p>
+		<b>Useful:</b>
+		<ul>
+			<li>https://gist.github.com/asidko/9c7064027039411a11323eaf7d8ea2a4
+			<li>https://www.npmjs.com/package/uglify-js
+		</ul>
+	</p>
+	<p>
+		<b>TODO:</b>
+		<ul>
+			<li>Prettify this page.
+			<li>Newlines in unminified version.
+			<li>Write about undo/deprecation.
+			<li>Write about build process (plus host the full-length js, and link to the gh repo).
+		</ul>
+	</p>
+
+</body>
+</html>
