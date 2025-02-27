@@ -42,7 +42,7 @@ if (window.ktoBookmarklet) {
 
 		var toggleFont = () => {
 			var [textarea] = getActiveTA();
-			var [style,fontFamily,courier,whiteSpace,nowrap] = [textarea.style,'fontFamily','Courier','whiteSpace','nowrap']; 
+			var [style,fontFamily,courier,whiteSpace,nowrap] = [textarea.style,'fontFamily','Courier','whiteSpace','nowrap'];
 			if (style[fontFamily]) {
 				style[fontFamily] = '';
 				style[whiteSpace] = '';
@@ -78,19 +78,19 @@ if (window.ktoBookmarklet) {
 				_in = 'entire textarea';
 			}
 			var sel = textarea.value.substring(s, e);
-		
+
 			var c = 0;
 			sel = sel.replaceAll(
 				/\!\[image\]\((https:\/\/github\.com\/user-attachments\/.*?)\)/g,
 				(s, p1) => { c+=1; return '<img width=30% src=' + p1 + '>'; }
 			);
-			replaceInTextarea(textarea, s, e, sel);			
+			replaceInTextarea(textarea, s, e, sel);
 			showMessage('Replaced ' + c + ' occurence(s) of ![image](...) in ' + _in);
 		};
 
 		var insert = (name, str) => {
 			var [t, s, e] = getActiveTA();
-			replaceInTextarea(t, s, e, str);			
+			replaceInTextarea(t, s, e, str);
 			showMessage('Inserted ' + name + ' at cursor');
 		};
 
@@ -128,16 +128,13 @@ if (window.ktoBookmarklet) {
 `));
 		};
 
-		var createLink = (name, fn, title, attrs) => {
-			attrs = attrs || {};
+		var createLink = (name, fn, title, attrOverrides) => {
 			// attrs.href = attrs.href || '#';
 			var preventDefault = (e) => e.preventDefault();
 			var a = createEl('a', {
-				href: '#',
+				href: 'javascript:',
 				title: title,
-				style: 'text-decoration: none'
-			}, name);
-			Object.assign(a, {
+				style: 'text-decoration:none;color:#551a8b;',
 				onmouseover: (e) => e.target.style.textDecoration = 'underline',
 				onmouseout: (e) => e.target.style.textDecoration = 'none',
 				/* Catch clicks without grabbing focus */
@@ -145,7 +142,8 @@ if (window.ktoBookmarklet) {
 				onmousedown: preventDefault,
 				onclick: preventDefault,
 				onmouseup: (e) => { preventDefault(e); fn && fn() }
-			}, attrs);
+			}, name);
+			Object.assign(a, attrOverrides || {});
 			return a;
 		};
 
@@ -156,6 +154,7 @@ if (window.ktoBookmarklet) {
 			var c = createEl('div', {
 				style: 'color:#17303B;margin:auto;text-align:center;padding:10px;background-color:#eee;border:2px solid #A0AD39;opacity:0.95;font-family:arial'
 			});
+
 			[
 				'v0.3 | ',
 				createLink('<img>', rewriteImages, 'Rewrite ![image] to <img>'),
@@ -166,7 +165,7 @@ if (window.ktoBookmarklet) {
 				' | ',
 				createLink('Aa↩', toggleFont, 'Fixed-width font, no wrap'),
 				' | ',
-				createLink('help', undefined, 'Help', {onclick: '', target: '_blank', href: 'https://kierantop.github.io/gh.html'}),				
+				createLink('help', undefined, 'Help', {onclick: '', target: '_blank', href: 'https://kierantop.github.io/gh.html'}),
 			].forEach(x => c.append(x));
 			menuEl.appendChild(c);
 			document.body.append(menuEl);
