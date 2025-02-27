@@ -156,7 +156,7 @@ if (window.ktoBookmarklet) {
 			});
 
 			[
-				'v0.3 | ',
+				'v0.4 | ',
 				createLink('<img>', rewriteImages, 'Rewrite ![image] to <img>'),
 				' | ',
 				createLink('<table>', insertTable, 'Insert <table>'),
