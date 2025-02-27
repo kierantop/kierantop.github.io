@@ -18,7 +18,7 @@ if (window.ktoBookmarklet) {
 
 		var createEl = (name, attrs, text) => {
 			var el = document.createElement(name);
-			Object.keys(attrs||{}).forEach(k => {el.setAttribute(k,attrs[k])});
+			Object.assign(el, attrs || {});
 			text ? el.textContent = text : 0;
 			return el;
 		};
@@ -128,7 +128,9 @@ if (window.ktoBookmarklet) {
 `));
 		};
 
-		var createLink = (name, fn, title) => {
+		var createLink = (name, fn, title, attrs) => {
+			attrs = attrs || {};
+			// attrs.href = attrs.href || '#';
 			var preventDefault = (e) => e.preventDefault();
 			var a = createEl('a', {
 				href: '#',
@@ -142,8 +144,8 @@ if (window.ktoBookmarklet) {
 				/* Prevent the href being followed */
 				onmousedown: preventDefault,
 				onclick: preventDefault,
-				onmouseup: (e) => { preventDefault(e); fn() }
-			});
+				onmouseup: (e) => { preventDefault(e); fn && fn() }
+			}, attrs);
 			return a;
 		};
 
@@ -164,7 +166,7 @@ if (window.ktoBookmarklet) {
 				' | ',
 				createLink('Aa↩', toggleFont, 'Fixed-width font, no wrap'),
 				' | ',
-				createLink('about', () => {location.href='https://kierantop.github.io/gh.html'}, 'About'),				
+				createLink('help', undefined, 'Help', {onclick: '', target: '_blank', href: 'https://kierantop.github.io/gh.html'}),				
 			].forEach(x => c.append(x));
 			menuEl.appendChild(c);
 			document.body.append(menuEl);
