@@ -181,7 +181,7 @@ if (window.ktoBookmarklet) {
 				' | ',
 				createLink('Aa↩', toggleFont, 'Fixed-width font, no wrap'),
 				' | ',
-				createLink('filename', copyFilename, 'Copy filename from element'),
+				createLink('filename🗐', copyFilename, 'Copy filename from element'),
 				' | ',
 				createLink('help', undefined, 'Help', {onclick: '', target: '_blank', href: 'https://kierantop.github.io/gh.html'}),
 			].forEach(x => c.append(x));
