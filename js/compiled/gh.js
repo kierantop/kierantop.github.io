@@ -53,6 +53,22 @@ if (window.ktoBookmarklet) {
 			}
 		};
 
+		var copyFilename = () => {
+			var selection = window.getSelection();
+			var path;
+			if (selection.isCollapsed) {
+				path = selection.focusNode.textContent;
+			} else {
+				// In time I'd like to extend so that it will default to "the word under the caret"
+				path = selection.toString();
+			}
+			var filename = path.split('/').reverse()[0];
+			navigator.clipboard.writeText(filename).then(
+				() => showMessage('Copied filename: ' + filename),
+				() => prompt('Copy filename:', filename)
+			);
+		};
+
 		var undoWarning = 'Beware, your undo buffer might misbehave.';
 
 		var replaceInTextarea = (textarea, s, e, str) => {
@@ -140,6 +156,8 @@ if (window.ktoBookmarklet) {
 				createLink('<details>', insertDetails, 'Insert <details>'),
 				' | ',
 				createLink('Aa↩', toggleFont, 'Fixed-width font, no wrap'),
+				' | ',
+				createLink('filename🗐', copyFilename, 'Copy filename from element'),
 				' | ',
 				createLink('help', undefined, 'Help', {onclick: '', target: '_blank', href: 'https://kierantop.github.io/gh.html'}),
 			].forEach(x => c.append(x));
