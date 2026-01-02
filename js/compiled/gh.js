@@ -59,7 +59,7 @@ if (window.ktoBookmarklet) {
 			if (selection.isCollapsed) {
 				path = selection.focusNode.textContent;
 			} else {
-				// In time I'd like to extend so that it will default to "the word under the caret"
+				/* In time I'd like to extend so that it will default to 'the word under the caret' */
 				path = selection.toString();
 			}
 			var filename = path.split('/').reverse()[0];
@@ -157,7 +157,7 @@ if (window.ktoBookmarklet) {
 				' | ',
 				createLink('Aa↩', toggleFont, 'Fixed-width font, no wrap'),
 				' | ',
-				createLink('filename🗐', copyFilename, 'Copy filename from element'),
+				createLink('filename', copyFilename, 'Copy filename from element'),
 				' | ',
 				createLink('help', undefined, 'Help', {onclick: '', target: '_blank', href: 'https://kierantop.github.io/gh.html'}),
 			].forEach(x => c.append(x));
