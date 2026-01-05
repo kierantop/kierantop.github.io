@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cat -n js/gh.js | perl -n -e 'print "JAVASCRIPT COMMENT WARNING: /*...*/ is much safer than //...\n  js/gh.js:$_" if /\/\/ /'
+
 echo Preprocessing template literals in js/gh.js
 perl ./build/preprocess-template-literals.pl js/gh.js >js/compiled/gh.js
 

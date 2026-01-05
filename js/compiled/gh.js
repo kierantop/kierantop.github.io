@@ -57,9 +57,38 @@ if (window.ktoBookmarklet) {
 			var selection = window.getSelection();
 			var path;
 			if (selection.isCollapsed) {
-				path = selection.focusNode.textContent;
+				/* Get the PATH under the caret.
+				 * See: https://stackoverflow.com/a/11248187 + help from Claude: https://claude.ai/chat/79b6a984-c0f7-47d8-8f0d-6bb5f00bc707
+				 *  NOTE this only works if the text is all in one node.
+				 */
+
+				var selectedRange = selection.getRangeAt(0);
+				var startNode = selectedRange.startContainer;
+				var startOffset = selectedRange.startOffset;
+
+				/* Get the full text content of the node */
+				var text = startNode.textContent || "";
+
+				/* Find start */
+				var start = startOffset;
+				while (start > 0 && !/[\s"]/.test(text[start - 1])) {
+					start--;
+				}
+
+				/* Find end of "word" */
+				var end = startOffset;
+				while (end < text.length && !/[\s"]/.test(text[end])) {
+					end++;
+				}
+
+				path = text.substring(start, end);
+
+				/* Restore selection */
+				selection.removeAllRanges();
+				selection.addRange(selectedRange);
+
+				/* simpler: path = selection.focusNode.textContent; */
 			} else {
-				/* In time I'd like to extend so that it will default to 'the word under the caret' */
 				path = selection.toString();
 			}
 			var filename = path.split('/').reverse()[0];
@@ -121,7 +150,7 @@ if (window.ktoBookmarklet) {
 		};
 
 		var createLink = (name, fn, title, attrOverrides) => {
-			// attrs.href = attrs.href || '#';
+			/* attrs.href = attrs.href || '#'; */
 			var preventDefault = (e) => e.preventDefault();
 			var a = createEl('a', {
 				href: 'javascript:',
